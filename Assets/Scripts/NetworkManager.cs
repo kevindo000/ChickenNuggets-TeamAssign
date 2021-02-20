@@ -24,6 +24,7 @@ public class NetworkManager : MonoBehaviour
             = UnityWebRequestAssetBundle.GetAssetBundle(url, 0);
         yield return request.SendWebRequest();
         AssetBundle bundle = DownloadHandlerAssetBundle.GetContent(request);
+         
         UnityEngine.Object[] objects = bundle.LoadAllAssets();
         foreach(UnityEngine.Object obj in objects)
         {
