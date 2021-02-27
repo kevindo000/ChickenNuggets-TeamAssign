@@ -9,8 +9,12 @@ public class NetworkManager : MonoBehaviour
     private UnityEngine.Object[] assets;
     public GameObject[] instAssets;
     private int position = 0;
+    private GameObject activeGameObject;
+    public float rotationSpeed = 50f;
 
-    private string url = String.Empty;
+    private bool isStartDone = false;
+    
+    public string url = String.Empty;
     IEnumerator getRequest(string url, Action<UnityWebRequest> callback)
     {
         using (UnityWebRequest request = UnityWebRequest.Get(url))
@@ -24,11 +28,8 @@ public class NetworkManager : MonoBehaviour
     {
         try
         {
-            int current = position;
+            instAssets[position].SetActive(false);
             position = (position + 1) % instAssets.Length;
-            string temp = String.Format("Changing position from {0} to {1}", current, position);
-            Debug.Log(temp);
-            instAssets[current].SetActive(false);
             instAssets[position].SetActive(true);
         }
         catch(Exception e)
@@ -42,11 +43,8 @@ public class NetworkManager : MonoBehaviour
     {
         try
         {
-            int current = position;
+            instAssets[position].SetActive(false);
             position = (position + instAssets.Length - 1) % instAssets.Length;
-            string temp = String.Format("Changing position from {0} to {1}", current, position);
-            Debug.Log(temp);
-            instAssets[current].SetActive(false);
             instAssets[position].SetActive(true);
         }
         catch (Exception e)
@@ -60,7 +58,7 @@ public class NetworkManager : MonoBehaviour
     IEnumerator Start()
     {
         int i = 0;
-        string url = "https://arvrclassstorage.blob.core.windows.net/models/PennyTestBundle/penny_prefab";
+        // string url = "https://arvrclassstorage.blob.core.windows.net/models/PennyTestBundle/penny_prefab";
         UnityEngine.Networking.UnityWebRequest request
             = UnityWebRequestAssetBundle.GetAssetBundle(url, 0);
         yield return request.SendWebRequest();
@@ -74,7 +72,6 @@ public class NetworkManager : MonoBehaviour
                 assetCount++;
             }
         }
-        Debug.Log(assetCount);
         instAssets = new GameObject[assetCount];
         i = 0;
         foreach(UnityEngine.Object obj in assets)
@@ -89,10 +86,23 @@ public class NetworkManager : MonoBehaviour
             }
         }
         instAssets[0].SetActive(true);
+
+        isStartDone = true;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (isStartDone)
+        {
+            RotateActiveObject();
+        }
     }
+    
+    void RotateActiveObject()
+    {
+        Transform activeGameObjectTrasnform = instAssets[position].transform; 
+        activeGameObjectTrasnform.Rotate(new Vector3(0f, rotationSpeed* Time.deltaTime, 0f));
+    }
+        
 }
