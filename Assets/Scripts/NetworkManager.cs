@@ -7,9 +7,10 @@ using UnityEngine.Networking;
 public class NetworkManager : MonoBehaviour
 {
     private UnityEngine.Object[] assets;
-    private GameObject[] instAssets;
+    public GameObject[] instAssets;
     private int position = 0;
-    public string url = String.Empty;
+
+    private string url = String.Empty;
     IEnumerator getRequest(string url, Action<UnityWebRequest> callback)
     {
         using (UnityWebRequest request = UnityWebRequest.Get(url))
@@ -59,7 +60,7 @@ public class NetworkManager : MonoBehaviour
     IEnumerator Start()
     {
         int i = 0;
-        //string url = "https://arvrclassstorage.blob.core.windows.net/models/PennyTestBundle/penny_prefab";
+        string url = "https://arvrclassstorage.blob.core.windows.net/models/PennyTestBundle/penny_prefab";
         UnityEngine.Networking.UnityWebRequest request
             = UnityWebRequestAssetBundle.GetAssetBundle(url, 0);
         yield return request.SendWebRequest();
