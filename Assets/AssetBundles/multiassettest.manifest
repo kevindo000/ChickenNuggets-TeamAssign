@@ -1,0 +1,43 @@
+ManifestFileVersion: 0
+CRC: 1536709836
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 3515f240a33ed12929e32c25b9d23b68
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 3ddb0b2f742aaa8430c40c0ceb983b76
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 111
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Cherry.prefab
+- Assets/Watermelon.prefab
+- Assets/Cheese.prefab
+- Assets/Banana.prefab
+- Assets/ice_cream_cone.prefab
+- Assets/Robot Kyle.prefab
+- Assets/Hotdog.prefab
+- Assets/Olive.prefab
+- Assets/Hamburger.prefab
+Dependencies: []
