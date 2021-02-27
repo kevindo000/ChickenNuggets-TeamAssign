@@ -1,0 +1,7 @@
+ManifestFileVersion: 0
+CRC: 708913013
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: multiassettest
+      Dependencies: {}
