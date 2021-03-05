@@ -3,11 +3,16 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using Newtonsoft.Json;
+using UnityEngine.UI;
 
 public class NetworkManager : MonoBehaviour
 {
+    public Text nameText;
+
+    private Attributes[] assetAttributes;
     private UnityEngine.Object[] assets;
-    public GameObject[] instAssets;
+    private GameObject[] instAssets;
     private int position = 0;
     private GameObject activeGameObject;
     public float rotationSpeed = 50f;
@@ -15,6 +20,8 @@ public class NetworkManager : MonoBehaviour
     private bool isStartDone = false;
     
     public string url = String.Empty;
+
+    public string jsonBaseUrl = String.Empty;
     IEnumerator getRequest(string url, Action<UnityWebRequest> callback)
     {
         using (UnityWebRequest request = UnityWebRequest.Get(url))
@@ -30,7 +37,7 @@ public class NetworkManager : MonoBehaviour
         {
             instAssets[position].SetActive(false);
             position = (position + 1) % instAssets.Length;
-            instAssets[position].SetActive(true);
+            Activate(position);
         }
         catch(Exception e)
         {
@@ -45,7 +52,7 @@ public class NetworkManager : MonoBehaviour
         {
             instAssets[position].SetActive(false);
             position = (position + instAssets.Length - 1) % instAssets.Length;
-            instAssets[position].SetActive(true);
+            Activate(position);
         }
         catch (Exception e)
         {
@@ -58,7 +65,6 @@ public class NetworkManager : MonoBehaviour
     IEnumerator Start()
     {
         int i = 0;
-        // string url = "https://arvrclassstorage.blob.core.windows.net/models/PennyTestBundle/penny_prefab";
         UnityEngine.Networking.UnityWebRequest request
             = UnityWebRequestAssetBundle.GetAssetBundle(url, 0);
         yield return request.SendWebRequest();
@@ -73,6 +79,7 @@ public class NetworkManager : MonoBehaviour
             }
         }
         instAssets = new GameObject[assetCount];
+        assetAttributes = new Attributes[assetCount];
         i = 0;
         foreach(UnityEngine.Object obj in assets)
         {
@@ -82,12 +89,31 @@ public class NetworkManager : MonoBehaviour
                 GameObject used = Instantiate(g);
                 used.SetActive(false);
                 instAssets[i] = used;
+                //if(g.name == "Banana" || g.name == "Cheese")
+                //{
+                UnityWebRequest req = UnityWebRequest.Get(jsonBaseUrl + g.name + ".json");
+                yield return req.SendWebRequest();
+                assetAttributes[i] = JsonConvert.DeserializeObject<Attributes>(req.downloadHandler.text);
+                //}
                 i++;
             }
         }
-        instAssets[0].SetActive(true);
+        Activate(0);
 
         isStartDone = true;
+    }
+
+    void Activate(int i)
+    {
+        instAssets[i].SetActive(true);
+        if(assetAttributes[i] != null)
+        {
+            nameText.text = assetAttributes[i].Name;
+        }
+        else
+        {
+            nameText.text = "Untitled";
+        }
     }
 
     // Update is called once per frame

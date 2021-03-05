@@ -1,0 +1,7 @@
+{
+  "Name": "Red Cherry",
+  "Health": 10,
+  "Damage": 10,
+  "Cost": 3,
+  "Description": "A weak cherry. Little health and damage, but very cheap."
+}

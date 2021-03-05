@@ -1,0 +1,7 @@
+{
+  "Name": "Hot Dog",
+  "Health": 100,
+  "Damage": 20,
+  "Cost": 15,
+  "Description": "A hot dog. Not the healthiest, but it's reasonably healthy and cheap."
+}

@@ -1,0 +1,7 @@
+{
+  "Name": "Bill",
+  "Health": 10,
+  "Damage": 200,
+  "Cost": 150,
+  "Description":  "A banana that is radioactive from potassium. Applies continuous damage to surroundings."
+}

@@ -1,0 +1,7 @@
+{
+  "Name": "Ice Cream",
+  "Health": 2,
+  "Damage": 20,
+  "Cost": 2,
+  "Description": "A cone with chocolate and lemon ice cream. Very weak health, but low cost."
+}

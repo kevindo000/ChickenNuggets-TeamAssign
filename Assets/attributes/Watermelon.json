@@ -1,0 +1,7 @@
+{
+  "Name": "Watermelon",
+  "Health": 250,
+  "Damage": 500,
+  "Cost": 600,
+  "Description": "A watermelon pit shooter."
+}

@@ -1,0 +1,7 @@
+{
+  "Name": "Super Robot",
+  "Health": 200000,
+  "Damage": 200000,
+  "Cost": 150645,
+  "Description": "A very powerful robot."
+}

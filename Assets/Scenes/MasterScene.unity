@@ -278,9 +278,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cb1fd79a06e7a94fa6381d37836dd94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  instAssets: []
+  nameText: {fileID: 2135473052}
   rotationSpeed: 50
   url: https://arvrclassstorage.blob.core.windows.net/models/MultiAssetTest1/multiassettest
+  jsonBaseUrl: https://arvrclassstorage.blob.core.windows.net/models/MultiAssetTest1/jsons/
 --- !u!1 &982054132
 GameObject:
   m_ObjectHideFlags: 0
