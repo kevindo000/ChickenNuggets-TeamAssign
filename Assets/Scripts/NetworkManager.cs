@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class NetworkManager : MonoBehaviour
 {
-    public Text nameText;
+    public UIController uiController;
 
     private Attributes[] assetAttributes;
     private UnityEngine.Object[] assets;
@@ -41,7 +41,7 @@ public class NetworkManager : MonoBehaviour
         }
         catch(Exception e)
         {
-            Debug.LogError("Error in nextButtonPushed");
+            Debug.LogError("Error in nextButtonPushed.");
             Debug.LogError(e);
         }
     }
@@ -56,7 +56,7 @@ public class NetworkManager : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.LogError("Error in backButtonPushed");
+            Debug.LogError("Error in backButtonPushed.");
             Debug.LogError(e);
         }
     }
@@ -89,12 +89,9 @@ public class NetworkManager : MonoBehaviour
                 GameObject used = Instantiate(g);
                 used.SetActive(false);
                 instAssets[i] = used;
-                //if(g.name == "Banana" || g.name == "Cheese")
-                //{
                 UnityWebRequest req = UnityWebRequest.Get(jsonBaseUrl + g.name + ".json");
                 yield return req.SendWebRequest();
                 assetAttributes[i] = JsonConvert.DeserializeObject<Attributes>(req.downloadHandler.text);
-                //}
                 i++;
             }
         }
@@ -108,11 +105,13 @@ public class NetworkManager : MonoBehaviour
         instAssets[i].SetActive(true);
         if(assetAttributes[i] != null)
         {
-            nameText.text = assetAttributes[i].Name;
+            // nameText.text = assetAttributes[i].Name;
+            uiController.UpdateObjectPropertiesUI(assetAttributes[i]);
         }
         else
         {
-            nameText.text = "Untitled";
+            // nameText.text = "Untitled";
+            uiController.SetAttributesToEmpty();
         }
     }
 
