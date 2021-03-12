@@ -5,8 +5,9 @@ using UnityEngine;
 using UnityEngine.Networking;
 using Newtonsoft.Json;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
-public class NetworkManager : MonoBehaviour
+public class ShopManager : MonoBehaviour
 {
     public UIController uiController;
 
@@ -95,6 +96,7 @@ public class NetworkManager : MonoBehaviour
                 i++;
             }
         }
+        bundle.Unload(false);
         Activate(0);
 
         isStartDone = true;
@@ -105,12 +107,10 @@ public class NetworkManager : MonoBehaviour
         instAssets[i].SetActive(true);
         if(assetAttributes[i] != null)
         {
-            // nameText.text = assetAttributes[i].Name;
             uiController.UpdateObjectPropertiesUI(assetAttributes[i]);
         }
         else
         {
-            // nameText.text = "Untitled";
             uiController.SetAttributesToEmpty();
         }
     }
@@ -129,5 +129,9 @@ public class NetworkManager : MonoBehaviour
         Transform activeGameObjectTrasnform = instAssets[position].transform; 
         activeGameObjectTrasnform.Rotate(new Vector3(0f, rotationSpeed* Time.deltaTime, 0f));
     }
-        
+
+    public void ExitShop()
+    {
+        if(isStartDone) SceneManager.LoadScene("MainScene");
+    }
 }
