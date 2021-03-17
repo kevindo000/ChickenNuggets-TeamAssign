@@ -14,7 +14,7 @@ public class NetworkManager : MonoBehaviour
     private UnityEngine.Object[] assets;
     private GameObject[] instAssets;
     private int position = 0;
-    private GameObject activeGameObject;
+    public GameObject objectHolder;
     public float rotationSpeed = 50f;
 
     private bool isStartDone = false;
@@ -87,6 +87,7 @@ public class NetworkManager : MonoBehaviour
             {
                 GameObject g = (GameObject)obj;
                 GameObject used = Instantiate(g);
+                g.transform.parent = objectHolder.transform;
                 used.SetActive(false);
                 instAssets[i] = used;
                 UnityWebRequest req = UnityWebRequest.Get(jsonBaseUrl + g.name + ".json");
@@ -113,21 +114,5 @@ public class NetworkManager : MonoBehaviour
             // nameText.text = "Untitled";
             uiController.SetAttributesToEmpty();
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (isStartDone)
-        {
-            RotateActiveObject();
-        }
-    }
-    
-    void RotateActiveObject()
-    {
-        Transform activeGameObjectTrasnform = instAssets[position].transform; 
-        activeGameObjectTrasnform.Rotate(new Vector3(0f, rotationSpeed* Time.deltaTime, 0f));
-    }
-        
+    }        
 }
