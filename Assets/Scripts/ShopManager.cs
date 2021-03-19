@@ -10,6 +10,7 @@ using UnityEngine.SceneManagement;
 public class ShopManager : MonoBehaviour
 {
     public UIController uiController;
+    public Transform anchorObject;
 
     private Attributes[] assetAttributes;
     private UnityEngine.Object[] assets;
@@ -36,7 +37,7 @@ public class ShopManager : MonoBehaviour
     {
         try
         {
-            instAssets[position].SetActive(false);
+            // instAssets[position].SetActive(false);
             position = (position + 1) % instAssets.Length;
             Activate(position);
         }
@@ -51,7 +52,7 @@ public class ShopManager : MonoBehaviour
     {
         try
         {
-            instAssets[position].SetActive(false);
+            // instAssets[position].SetActive(false);
             position = (position + instAssets.Length - 1) % instAssets.Length;
             Activate(position);
         }
@@ -87,9 +88,9 @@ public class ShopManager : MonoBehaviour
             if(obj.GetType() == typeof(GameObject))
             {
                 GameObject g = (GameObject)obj;
-                GameObject used = Instantiate(g);
-                used.SetActive(false);
-                instAssets[i] = used;
+                // GameObject used = Instantiate(g);
+                // used.SetActive(false);
+                instAssets[i] = g;
                 UnityWebRequest req = UnityWebRequest.Get(jsonBaseUrl + g.name + ".json");
                 yield return req.SendWebRequest();
                 assetAttributes[i] = JsonConvert.DeserializeObject<Attributes>(req.downloadHandler.text);
@@ -104,7 +105,11 @@ public class ShopManager : MonoBehaviour
 
     void Activate(int i)
     {
-        instAssets[i].SetActive(true);
+        if (activeGameObject != null)
+        {
+            Destroy(activeGameObject);
+        } 
+        activeGameObject = Instantiate(instAssets[i], anchorObject.transform);
         if(assetAttributes[i] != null)
         {
             uiController.UpdateObjectPropertiesUI(assetAttributes[i]);
@@ -126,8 +131,10 @@ public class ShopManager : MonoBehaviour
     
     void RotateActiveObject()
     {
-        Transform activeGameObjectTrasnform = instAssets[position].transform; 
-        activeGameObjectTrasnform.Rotate(new Vector3(0f, rotationSpeed* Time.deltaTime, 0f));
+        if (activeGameObject != null)
+        {
+            activeGameObject.transform.Rotate(new Vector3(0f, rotationSpeed* Time.deltaTime, 0f));
+        }
     }
 
     public void ExitShop()
