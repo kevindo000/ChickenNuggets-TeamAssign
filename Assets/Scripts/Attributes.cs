@@ -12,7 +12,7 @@ public class Attributes
     [JsonProperty]
     public double Damage { get; set; }
     [JsonProperty]
-    public double Cost { get; set; }
+    public int Cost { get; set; }
     [JsonProperty]
     public string Description { get; set; }
 }

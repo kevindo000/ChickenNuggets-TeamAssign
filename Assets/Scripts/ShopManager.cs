@@ -37,7 +37,6 @@ public class ShopManager : MonoBehaviour
     {
         try
         {
-            // instAssets[position].SetActive(false);
             position = (position + 1) % instAssets.Length;
             Activate(position);
         }
@@ -52,7 +51,6 @@ public class ShopManager : MonoBehaviour
     {
         try
         {
-            // instAssets[position].SetActive(false);
             position = (position + instAssets.Length - 1) % instAssets.Length;
             Activate(position);
         }
