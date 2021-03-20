@@ -309,7 +309,7 @@ MonoBehaviour:
   modelNameText: {fileID: 2135473052}
   damageText: {fileID: 1699221368}
   costText: {fileID: 1163776188}
-  currentMoney: {fileID: 1746161914}
+  currentMoney: {fileID: 0}
 --- !u!4 &473970132
 Transform:
   m_ObjectHideFlags: 0
@@ -2077,7 +2077,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 9999999999
+  m_Text: 99999999
 --- !u!222 &1746161915
 CanvasRenderer:
   m_ObjectHideFlags: 0
