@@ -9,16 +9,19 @@ public class UIController : MonoBehaviour {
 
     public Text descriptionText; 
     public Text modelNameText; 
-    public Text damageText;
+    public Text healthText; 
+    public Text damageText; 
     public Text costText;
-    public Text currentMoney;
+    public Text moneyText;
 
     public void UpdateObjectPropertiesUI(Attributes objectAttributes)
     {
-        damageText.text = String.Format("$ {0}",objectAttributes.Damage);
+        damageText.text = String.Format("{0}",objectAttributes.Damage);
         modelNameText.text = objectAttributes.Name;
         descriptionText.text = objectAttributes.Description;
-        costText.text = String.Format("$ {0}",objectAttributes.Cost);
+        costText.text = String.Format("{0}",objectAttributes.Cost);;
+        healthText.text = String.Format("{0}",objectAttributes.Health);;
+        
     }
 
     public void SetAttributesToEmpty()
@@ -29,13 +32,20 @@ public class UIController : MonoBehaviour {
         damageText.text = "Loading object ... ";
     }
 
-    public void changeMoney(int change)
+    public bool EditMoney(long money)
     {
-        int myMoney = Convert.ToInt32(currentMoney.text);
-        if(myMoney + change >= 0)
+        long current = Convert.ToInt64(moneyText.text);
+        if(current + money >= 0)
         {
-            myMoney += change;
-            currentMoney.text = myMoney.ToString();
+            //string s = current.ToString() + " " + money.ToString() + " " + (current+money).ToString();
+            //Debug.Log(s);
+            current += money;
+            moneyText.text = current.ToString();
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 }

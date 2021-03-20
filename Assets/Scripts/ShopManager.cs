@@ -37,6 +37,7 @@ public class ShopManager : MonoBehaviour
     {
         try
         {
+            // instAssets[position].SetActive(false);
             position = (position + 1) % instAssets.Length;
             Activate(position);
         }
@@ -51,6 +52,7 @@ public class ShopManager : MonoBehaviour
     {
         try
         {
+            // instAssets[position].SetActive(false);
             position = (position + instAssets.Length - 1) % instAssets.Length;
             Activate(position);
         }
@@ -142,9 +144,14 @@ public class ShopManager : MonoBehaviour
 
     public void BuyMe()
     {
-        if(assetAttributes[position] != null)
+        long mycost = -assetAttributes[position].Cost;
+        if (uiController.EditMoney(mycost))
         {
-            uiController.changeMoney(-assetAttributes[position].Cost);
+            Debug.Log("Purchase Success!");
+        }
+        else
+        {
+            Debug.LogError("Purchase Failed!");
         }
     }
 }
