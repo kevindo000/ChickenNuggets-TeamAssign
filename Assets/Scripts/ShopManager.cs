@@ -18,7 +18,7 @@ public class ShopManager : MonoBehaviour
     private int position = 0;
     private GameObject activeGameObject;
     public float rotationSpeed = 50f;
-
+    public float scaleFactor = 10f;
     private bool isStartDone = false;
     
     public string url = String.Empty;
@@ -108,6 +108,7 @@ public class ShopManager : MonoBehaviour
             Destroy(activeGameObject);
         } 
         activeGameObject = Instantiate(instAssets[i], anchorObject.transform);
+        activeGameObject.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
         if(assetAttributes[i] != null)
         {
             uiController.UpdateObjectPropertiesUI(assetAttributes[i]);
