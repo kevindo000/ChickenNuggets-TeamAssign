@@ -141,4 +141,17 @@ public class ShopManager : MonoBehaviour
     {
         if(isStartDone) SceneManager.LoadScene("MainScene");
     }
+
+    public void BuyMe()
+    {
+        long mycost = -assetAttributes[position].Cost;
+        if (uiController.EditMoney(mycost))
+        {
+            Debug.Log("Purchase Success!");
+        }
+        else
+        {
+            Debug.LogError("Purchase Failed!");
+        }
+    }
 }

@@ -12,6 +12,7 @@ public class UIController : MonoBehaviour {
     public Text healthText; 
     public Text damageText; 
     public Text costText;
+    public Text moneyText;
 
     public void UpdateObjectPropertiesUI(Attributes objectAttributes)
     {
@@ -29,5 +30,22 @@ public class UIController : MonoBehaviour {
         modelNameText.text = "Loading object ... ";
         costText.text = "Loading object ... ";
         damageText.text = "Loading object ... ";
-    } 
+    }
+
+    public bool EditMoney(long money)
+    {
+        long current = Convert.ToInt64(moneyText.text);
+        if(current + money >= 0)
+        {
+            //string s = current.ToString() + " " + money.ToString() + " " + (current+money).ToString();
+            //Debug.Log(s);
+            current += money;
+            moneyText.text = current.ToString();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
