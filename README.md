@@ -7,3 +7,5 @@
 ## Gal Egozi
 1. Setup the asset loading from Azure, including the logic for switching between the different models.
 2. Implemented the loading for the properties as individual JSON files (one for each object) from Azure into a C# object.
+3. Added a new scene and implemented a scene transition button.
+4. Implemented a buy button for the shop to prototype the purchasing process.
