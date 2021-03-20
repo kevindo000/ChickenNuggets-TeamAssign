@@ -139,4 +139,12 @@ public class ShopManager : MonoBehaviour
     {
         if(isStartDone) SceneManager.LoadScene("MainScene");
     }
+
+    public void BuyMe()
+    {
+        if(assetAttributes[position] != null)
+        {
+            uiController.changeMoney(-assetAttributes[position].Cost);
+        }
+    }
 }
