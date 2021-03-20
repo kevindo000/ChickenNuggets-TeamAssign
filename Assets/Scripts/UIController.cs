@@ -10,6 +10,7 @@ public class UIController : MonoBehaviour {
     public Text descriptionText; 
     public Text modelNameText; 
     public Text damageText;
+    public Text healthText;
     public Text costText;
     public Text currentMoney;
 
@@ -19,6 +20,7 @@ public class UIController : MonoBehaviour {
         modelNameText.text = objectAttributes.Name;
         descriptionText.text = objectAttributes.Description;
         costText.text = String.Format("$ {0}",objectAttributes.Cost);
+        healthText.text = String.Format("$ {0}",objectAttributes.Health);
     }
 
     public void SetAttributesToEmpty()
@@ -27,6 +29,7 @@ public class UIController : MonoBehaviour {
         modelNameText.text = "Loading object ... ";
         costText.text = "Loading object ... ";
         damageText.text = "Loading object ... ";
+        healthText.text = "Loading object ... ";
     }
 
     public void changeMoney(int change)
