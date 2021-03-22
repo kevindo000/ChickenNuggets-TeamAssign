@@ -4,6 +4,7 @@
 ## Kevin Do (Team Lead)
 1. Designed the front UI and look of buttons and icons.
 2. Prepared presentation.
+3. Providing the Vuforia database and targets
 ## Gal Egozi
 1. Setup the asset loading from Azure, including the logic for switching between the different models.
 2. Implemented the loading for the properties as individual JSON files (one for each object) from Azure into a C# object.
