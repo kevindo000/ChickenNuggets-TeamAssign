@@ -1,5 +1,5 @@
 # ChickenNuggets Team Assign
- This is the assignment ??? for Immersive Spatial Tech. Made by Kevin Do, Phuc Vo, Gal Egozi, Henry Hite, Khuong Nguyen
+ This is the midterm for Immersive Spatial Tech. Made by Kevin Do, Phuc Vo, Gal Egozi, Henry Hite, Khuong Nguyen
 # Contributions
 ## Kevin Do (Team Lead)
 1. Designed the front UI and look of buttons and icons.
