@@ -9,3 +9,9 @@
 2. Implemented the loading for the properties as individual JSON files (one for each object) from Azure into a C# object.
 3. Added a new scene and implemented a scene transition button.
 4. Implemented a buy button for the shop to prototype the purchasing process.
+## Khuong Nguyen
+1. Created the UI Layout for shop scene
+2. Wrote the logic to rotate active object 
+3. Wrote the UIController.cs to programatically control the UI
+4. Brought the active object to ImageTarget on ARCam
+5. Helped with the ShopManager.cs
