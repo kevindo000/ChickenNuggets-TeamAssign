@@ -18,3 +18,4 @@
 5. Helped with the ShopManager.cs
 ## Henry Hite
 1. Presented video of our working shop.
+2. Added rotate/scale for loaded objects
