@@ -19,3 +19,5 @@
 ## Henry Hite
 1. Presented video of our working shop.
 2. Added rotate/scale for loaded objects
+## Phuc Vo
+1. Help in anchoring UI elements
