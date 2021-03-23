@@ -16,3 +16,5 @@
 3. Wrote the UIController.cs to programatically control the UI
 4. Brought the active object to ImageTarget on ARCam
 5. Helped with the ShopManager.cs
+## Phuc Vo
+1. Help in anchoring UI elements
