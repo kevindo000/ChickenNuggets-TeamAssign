@@ -3,8 +3,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using UnityEditor;
-using UnityEditor.PackageManager;
-using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 
 [InitializeOnLoad]
@@ -12,7 +10,7 @@ public class AddVuforiaEnginePackage
 {
     static readonly string sPackagesPath = Path.Combine(Application.dataPath, "..", "Packages");
     static readonly string sManifestJsonPath = Path.Combine(sPackagesPath, "manifest.json");
-    const string VUFORIA_VERSION = "9.7.5";
+    const string VUFORIA_VERSION = "9.8.5";
     const string PACKAGE_KEY = "com.ptc.vuforia.engine";
     const string GIT_URL = "git+https://git-packages.developer.vuforia.com";
 
@@ -23,8 +21,6 @@ public class AddVuforiaEnginePackage
         scopes = new[] {"com.ptc.vuforia"}
     };
 
-    static ListRequest sListRequest;
-
     static AddVuforiaEnginePackage()
     {
         if (Application.isBatchMode)
@@ -32,14 +28,54 @@ public class AddVuforiaEnginePackage
 
         var manifest = Manifest.JsonDeserialize(sManifestJsonPath);
 
-        if (!IsUsingGitUrl(manifest))
+        if (!IsUsingRightGitUrl(manifest))
             DisplayAddPackageDialogue(manifest);
     }
 
-    static bool IsUsingGitUrl(Manifest manifest)
+    static bool IsUsingRightGitUrl(Manifest manifest)
     {
         var dependencies = manifest.Dependencies.Split(',').ToList();
-        return dependencies.Any(d => d.Contains(PACKAGE_KEY) && d.Contains(GIT_URL));
+        return dependencies.Any(d => d.Contains(PACKAGE_KEY) && d.Contains(GIT_URL) && VersionNumberIsTheLatest(d));
+    }
+
+    static bool VersionNumberIsTheLatest(string package)
+    {
+        var version = package.Split('#');
+        if (version.Length >= 2)
+        {
+            version[1] = version[1].TrimEnd(new []{ '"' });
+            return IsCurrentVersionHigher(version[1]);
+        }
+        
+        return false;
+    }
+
+    static bool IsCurrentVersionHigher(string currentVersionString)
+    {
+        if (string.IsNullOrEmpty(currentVersionString) || string.IsNullOrEmpty(VUFORIA_VERSION))
+            return false;
+        
+        var currentVersion = TryConvertStringToVersion(currentVersionString);
+        var updatingVersion = TryConvertStringToVersion(VUFORIA_VERSION);
+        if (currentVersion >= updatingVersion)
+            return true;
+
+        return false;
+    }
+
+    static Version TryConvertStringToVersion(string versionString)
+    {
+        Version res;
+        try
+        {
+            res = new Version(versionString);
+        }
+        catch (Exception e)
+        {
+            return new Version();
+        }
+
+        return new Version(res.Major, res.Minor, res.Build);
     }
 
 
@@ -47,7 +83,8 @@ public class AddVuforiaEnginePackage
     {
         if (EditorUtility.DisplayDialog("Add Vuforia Engine Package",
             $"Would you like to update your project to include the Vuforia Engine {VUFORIA_VERSION} package from Git?\n" +
-            $"If an older Vuforia Engine package is already present in your project it will be upgraded to version {VUFORIA_VERSION}", "Update", "Cancel"))
+            $"If an older Vuforia Engine package is already present in your project it will be upgraded to version {VUFORIA_VERSION}\n\n" +
+            $"Please make sure that Git is installed and on your PATH environment variable.", "Update", "Cancel"))
         {
             UpdateManifest(manifest);
         }
@@ -77,7 +114,6 @@ public class AddVuforiaEnginePackage
         var dependencies = manifest.Dependencies.Split(',').ToList();
 
         var versionEntry = $"\"{GIT_URL}#{VUFORIA_VERSION}\"";
-
         var versionSet = false;
         for (var i = 0; i < dependencies.Count; i++)
         {
@@ -85,11 +121,7 @@ public class AddVuforiaEnginePackage
                 continue;
 
             var kvp = dependencies[i].Split(':');
-
-            kvp[1] = versionEntry;
-
-            dependencies[i] = string.Join(":", kvp);
-
+            dependencies[i] = kvp[0] + ": " + versionEntry;
             versionSet = true;
         }
 
